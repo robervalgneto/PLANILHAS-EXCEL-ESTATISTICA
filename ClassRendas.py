@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 renda_fam = [
     5, 6.8, 9, 3, 17, 13, 11.2, 5.4, 13, 16, 16, 16.3, 11.7, 12, 4, 3, 9, 13, 12, 9, 2, 1, 3, 4, 2, 
@@ -27,3 +29,29 @@ def classificar_renda(renda):
 renda_fam_classificada = [classificar_renda(renda) for renda in renda_fam_sorted]
 
 renda_fam_classificada
+
+renda_media_geral = np.mean(renda_fam)
+
+renda_media_por_subgrupo = {
+    "Baixa": np.mean([renda for i, renda in enumerate(renda_fam) if renda_fam_classificada[i] == 'Baixa']),
+    "MediaBaixa": np.mean([renda for i, renda in enumerate(renda_fam) if renda_fam_classificada[i] == 'MediaBaixa']),
+    "MediaAlta": np.mean([renda for i, renda in enumerate(renda_fam) if renda_fam_classificada[i] == 'MediaAlta']),
+    "Alta": np.mean([renda for i, renda in enumerate(renda_fam) if renda_fam_classificada[i] == 'Alta']),
+}
+
+renda_media_geral, renda_media_por_subgrupo
+
+dados = {
+    "Renda": renda_fam,
+    "Subgrupo": renda_fam_classificada
+}
+
+import pandas as pd
+df = pd.DataFrame(dados)
+
+plt.figure(figsize=(10, 6))
+sns.boxplot(x="Subgrupo", y="Renda", data=df)
+plt.title('Box Plot da Renda Geral e por Subgrupo de Renda')
+plt.xlabel('Subgrupo de Renda')
+plt.ylabel('Renda Familiar')
+plt.show()
