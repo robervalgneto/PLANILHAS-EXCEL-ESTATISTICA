@@ -12,3 +12,18 @@ Q2 = np.percentile(renda_fam_sorted, 50)
 Q3 = np.percentile(renda_fam_sorted, 75)
 
 Q1, Q2, Q3
+
+def classificar_renda(renda):
+    if renda <= Q1:
+        return 'Baixa'
+    elif Q1 < renda <= Q2:
+        return 'MediaBaixa'
+    elif Q2 < renda <= Q3:
+        return 'MediaAlta'
+    else:
+        return 'Alta'
+
+
+renda_fam_classificada = [classificar_renda(renda) for renda in renda_fam_sorted]
+
+renda_fam_classificada
